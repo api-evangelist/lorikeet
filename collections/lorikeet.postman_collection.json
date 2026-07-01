@@ -1,0 +1,262 @@
+{
+  "info": {
+    "name": "Lorikeet API",
+    "description": "Modeled from Lorikeet's public integration and security materials. The authoritative reference at docs.lorikeetcx.ai is access-gated; endpoints and base URL below are best-effort and unverified. Auth is a Bearer API key.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.lorikeetcx.ai/v1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Conversations",
+      "item": [
+        {
+          "name": "Create a conversation",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/conversations",
+              "host": ["{{baseUrl}}"],
+              "path": ["conversations"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"end_user\": { \"id\": \"user_123\", \"email\": \"user@example.com\" },\n  \"message\": \"I was charged twice for my subscription.\",\n  \"channel\": \"chat\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Start a new conversation (support ticket) for the Lorikeet AI agent to work."
+          }
+        },
+        {
+          "name": "List conversations",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/conversations",
+              "host": ["{{baseUrl}}"],
+              "path": ["conversations"]
+            },
+            "description": "List conversations, optionally filtered by status."
+          }
+        },
+        {
+          "name": "Retrieve a conversation",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/conversations/:conversation_id",
+              "host": ["{{baseUrl}}"],
+              "path": ["conversations", ":conversation_id"],
+              "variable": [
+                { "key": "conversation_id", "value": "" }
+              ]
+            },
+            "description": "Retrieve the current state of a conversation, including status and resolution."
+          }
+        },
+        {
+          "name": "Continue a conversation",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/conversations/:conversation_id",
+              "host": ["{{baseUrl}}"],
+              "path": ["conversations", ":conversation_id"],
+              "variable": [
+                { "key": "conversation_id", "value": "" }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"Here is my order number: 10245.\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Continue an existing conversation with a new end-user message."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Messages",
+      "item": [
+        {
+          "name": "List messages",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/conversations/:conversation_id/messages",
+              "host": ["{{baseUrl}}"],
+              "path": ["conversations", ":conversation_id", "messages"],
+              "variable": [
+                { "key": "conversation_id", "value": "" }
+              ]
+            },
+            "description": "List messages for a conversation."
+          }
+        },
+        {
+          "name": "Post a message",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/conversations/:conversation_id/messages",
+              "host": ["{{baseUrl}}"],
+              "path": ["conversations", ":conversation_id", "messages"],
+              "variable": [
+                { "key": "conversation_id", "value": "" }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"end_user\",\n  \"content\": \"Any update on my refund?\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Append a message to a conversation."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "List webhook subscriptions",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/webhooks",
+              "host": ["{{baseUrl}}"],
+              "path": ["webhooks"]
+            },
+            "description": "List registered webhook subscriptions."
+          }
+        },
+        {
+          "name": "Create a webhook subscription",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/webhooks",
+              "host": ["{{baseUrl}}"],
+              "path": ["webhooks"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"https://example.com/hooks/lorikeet\",\n  \"events\": [\"conversation.resolved\", \"conversation.escalated\"],\n  \"secret\": \"whsec_...\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Register an endpoint to receive HMAC-signed Lorikeet events."
+          }
+        },
+        {
+          "name": "Delete a webhook subscription",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/webhooks/:webhook_id",
+              "host": ["{{baseUrl}}"],
+              "path": ["webhooks", ":webhook_id"],
+              "variable": [
+                { "key": "webhook_id", "value": "" }
+              ]
+            },
+            "description": "Delete a webhook subscription."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Knowledge",
+      "item": [
+        {
+          "name": "List knowledge sources",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/knowledge/sources",
+              "host": ["{{baseUrl}}"],
+              "path": ["knowledge", "sources"]
+            },
+            "description": "List configured knowledge sources."
+          }
+        },
+        {
+          "name": "Ingest a knowledge source",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/knowledge/sources",
+              "host": ["{{baseUrl}}"],
+              "path": ["knowledge", "sources"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"url\",\n  \"url\": \"https://help.example.com/refunds\",\n  \"title\": \"Refund policy\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Submit a document, URL, or article for asynchronous ingestion."
+          }
+        },
+        {
+          "name": "Retrieve a knowledge source",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/knowledge/sources/:source_id",
+              "host": ["{{baseUrl}}"],
+              "path": ["knowledge", "sources", ":source_id"],
+              "variable": [
+                { "key": "source_id", "value": "" }
+              ]
+            },
+            "description": "Retrieve a knowledge source and its ingestion status."
+          }
+        },
+        {
+          "name": "Delete a knowledge source",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/knowledge/sources/:source_id",
+              "host": ["{{baseUrl}}"],
+              "path": ["knowledge", "sources", ":source_id"],
+              "variable": [
+                { "key": "source_id", "value": "" }
+              ]
+            },
+            "description": "Delete a knowledge source."
+          }
+        }
+      ]
+    }
+  ]
+}

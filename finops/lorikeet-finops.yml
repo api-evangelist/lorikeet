@@ -1,0 +1,97 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Lorikeet
+providerId: lorikeet
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- AI
+- Customer Support
+- AI Agent
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Lorikeet spend. Lorikeet is an enterprise AI customer support
+  agent sold on a sales-quoted, outcome- / resolution-based model - spend
+  tracks the volume of support tickets the agent actually resolves rather than
+  per-API-call or per-seat charges. The primary cost driver to allocate and
+  optimize is resolved conversations; secondary considerations are escalation
+  (human-handoff) rate and the volume of tool/action calls into downstream
+  systems (which may carry their own third-party costs, e.g. Stripe, Twilio).
+notes: >-
+  No public unit prices are available (contract-quoted). Meters below describe
+  the cost model qualitatively for allocation and optimization; reconcile actual
+  billed units and rates against your Lorikeet agreement.
+sources:
+- https://lorikeet.ai
+- https://www.lorikeetcx.ai/
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Lorikeet
+serviceCategory: AI and Machine Learning
+billingModel:
+  pricingCategory: Outcome-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+focusColumns:
+  ServiceName: Lorikeet AI Support Agent
+  ServiceCategory: AI and Machine Learning
+  ProviderName: Lorikeet
+  PublisherName: Lorikeet
+  InvoiceIssuerName: Lorikeet
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Outcome-Based
+meters:
+- name: resolved_conversations
+  description: Support conversations the AI agent resolved end-to-end; primary billed / allocated unit under resolution-based pricing.
+  unit: resolutions
+  aggregation: sum
+  dimensions:
+  - account
+  - channel
+  - workflow
+- name: conversations_handled
+  description: Total conversations the agent engaged (resolved plus escalated); useful for containment/deflection analysis.
+  unit: conversations
+  aggregation: sum
+  dimensions:
+  - account
+  - channel
+- name: escalations
+  description: Conversations handed off to a human agent; a cost-avoidance signal (unresolved by AI).
+  unit: escalations
+  aggregation: sum
+  dimensions:
+  - account
+  - workflow
+- name: tool_invocations
+  description: Typed action / tool calls the agent makes into downstream systems; may incur third-party costs (e.g. Stripe, Twilio).
+  unit: invocations
+  aggregation: sum
+  dimensions:
+  - account
+  - tool
+principles:
+- name: Visibility
+  description: Track resolved vs. escalated conversations per channel and workflow to understand containment and effective cost per resolution.
+- name: Allocation
+  description: Attribute resolutions to teams/workflows/queues to map AI support spend to internal cost centers.
+- name: Optimization
+  description: Improve workflow/skill coverage to raise resolution rate and lower escalations; audit tool calls that trigger downstream third-party charges.
+- name: Accountability
+  description: Assign owners per workflow; review resolution volume and escalation rate monthly against the contracted commitment.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

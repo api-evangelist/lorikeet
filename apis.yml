@@ -1,0 +1,154 @@
+aid: lorikeet
+url: https://raw.githubusercontent.com/api-evangelist/lorikeet/refs/heads/main/apis.yml
+name: Lorikeet
+kind: company
+description: Lorikeet (Lorikeet CX) is an AI customer support agent built for complex
+  and regulated businesses across chat, email, and voice. Rather than a single chatbot,
+  it uses a workflow / "skills"-based orchestration layer that follows a company's
+  standard operating procedures, calls into helpdesks (Zendesk, Intercom, Front) and
+  internal systems through typed, no-code tools, and produces a per-step audit trail.
+  Its programmatic surface centers on conversations, inbound and outbound webhooks /
+  events, actions/tools, and knowledge ingestion, secured with scoped Bearer/API-key
+  credentials. Full API reference is gated behind an access code, so endpoint detail
+  below is modeled from Lorikeet's public integration and security materials and marked
+  where unconfirmed.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- AI
+- Customer Support
+- AI Agent
+- Support Automation
+- Workflows
+- Helpdesk
+created: '2026-07-01'
+modified: '2026-07-01'
+specificationVersion: '0.19'
+apis:
+- aid: lorikeet:lorikeet-conversations-api
+  name: Lorikeet Conversations API
+  tags:
+  - Conversations
+  - Support Tickets
+  - AI Agent
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lorikeetcx.ai/guides/quickstart
+  baseURL: https://api.lorikeetcx.ai/v1
+  properties:
+  - url: https://docs.lorikeetcx.ai/guides/quickstart
+    type: Documentation
+  - url: openapi/lorikeet-openapi.yml
+    type: OpenAPI
+  - url: collections/lorikeet.postman_collection.json
+    type: PostmanCollection
+  - url: collections/lorikeet.opencollection.json
+    type: OpenCollection
+  description: Programmatically create and continue conversations (support tickets)
+    with the Lorikeet AI agent, post end-user and agent messages, and retrieve
+    conversation state and resolution. Base URL and paths are modeled from Lorikeet's
+    public materials; the authoritative reference is access-gated.
+- aid: lorikeet:lorikeet-messages-api
+  name: Lorikeet Messages API
+  tags:
+  - Messages
+  - Conversations
+  - Chat
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lorikeetcx.ai/guides/quickstart
+  baseURL: https://api.lorikeetcx.ai/v1
+  properties:
+  - url: https://docs.lorikeetcx.ai/guides/quickstart
+    type: Documentation
+  - url: openapi/lorikeet-openapi.yml
+    type: OpenAPI
+  - url: collections/lorikeet.postman_collection.json
+    type: PostmanCollection
+  - url: collections/lorikeet.opencollection.json
+    type: OpenCollection
+  description: Append and list messages within a conversation, carrying end-user
+    input and the agent's replies. Messages are the unit that drives the workflow
+    orchestration layer forward toward resolution or human handoff.
+- aid: lorikeet:lorikeet-webhooks-events-api
+  name: Lorikeet Webhooks & Events API
+  tags:
+  - Webhooks
+  - Events
+  - HMAC
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.lorikeetcx.ai/articles/ai-support-secure-api-webhook-integrations-2026
+  baseURL: https://api.lorikeetcx.ai/v1
+  properties:
+  - url: https://www.lorikeetcx.ai/articles/ai-support-secure-api-webhook-integrations-2026
+    type: Documentation
+  - url: openapi/lorikeet-openapi.yml
+    type: OpenAPI
+  - url: collections/lorikeet.postman_collection.json
+    type: PostmanCollection
+  - url: collections/lorikeet.opencollection.json
+    type: OpenCollection
+  description: Register and manage webhook subscriptions and receive Lorikeet events
+    (conversation created, updated, resolved, escalated / handoff). Lorikeet supports
+    inbound HMAC-signed webhooks that are cryptographically verified before the
+    agent acts, and outbound async request/response callbacks so internal APIs are
+    never exposed to the open internet.
+- aid: lorikeet:lorikeet-actions-tools-api
+  name: Lorikeet Actions & Tools API
+  tags:
+  - Actions
+  - Tools
+  - Integrations
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.lorikeetcx.ai/articles/ai-support-secure-api-webhook-integrations-2026
+  baseURL: https://api.lorikeetcx.ai/v1
+  properties:
+  - url: https://www.lorikeetcx.ai/articles/ai-support-secure-api-webhook-integrations-2026
+    type: Documentation
+  - url: openapi/lorikeet-openapi.yml
+    type: OpenAPI
+  - url: collections/lorikeet.postman_collection.json
+    type: PostmanCollection
+  - url: collections/lorikeet.opencollection.json
+    type: OpenCollection
+  description: Lorikeet's "tools" primitive - typed actions with defined inputs and
+    outputs and optional JavaScript output transforms, built no-code in the UI - lets
+    the agent call into your systems (via synchronous scoped-credential API,
+    inbound webhook, or outbound async callback) and chain multiple typed actions
+    across systems. This surface is configured primarily in the Lorikeet UI; any
+    programmatic management is not publicly documented.
+- aid: lorikeet:lorikeet-knowledge-ingestion-api
+  name: Lorikeet Knowledge Ingestion API
+  tags:
+  - Knowledge
+  - Ingestion
+  - Documents
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.lorikeetcx.ai/guides/quickstart
+  baseURL: https://api.lorikeetcx.ai/v1
+  properties:
+  - url: https://docs.lorikeetcx.ai/guides/quickstart
+    type: Documentation
+  - url: openapi/lorikeet-openapi.yml
+    type: OpenAPI
+  - url: collections/lorikeet.postman_collection.json
+    type: PostmanCollection
+  - url: collections/lorikeet.opencollection.json
+    type: OpenCollection
+  description: Ingest and manage the knowledge sources (help-center articles,
+    documents, URLs) the agent draws on when following workflows. Public materials
+    confirm knowledge is a first-class concept; the exact ingestion endpoints are
+    access-gated and modeled here honestly rather than asserted as verified.
+common:
+- type: LinkedIn
+  url: https://www.linkedin.com/company/lorikeetcx
+- type: Website
+  url: https://lorikeet.ai
+- type: Documentation
+  url: https://docs.lorikeetcx.ai/guides/quickstart
+- type: Plans
+  url: plans/lorikeet-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/lorikeet-rate-limits.yml
+- type: FinOps
+  url: finops/lorikeet-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,62 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Lorikeet
+providerId: lorikeet
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- AI
+- Customer Support
+- AI Agent
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Lorikeet does not publish specific API rate-limit values; its authoritative
+  API reference is access-gated and rate limits are typically governed per
+  account/contract. As an enterprise AI support agent, throughput is bounded
+  more by contracted resolution/conversation volume than by a public
+  per-endpoint RPM. Standard HTTP throttling conventions (HTTP 429 with
+  Retry-After and exponential backoff) are assumed for the inbound management
+  API. Outbound tool/action calls Lorikeet makes into your systems are subject
+  to your systems' own limits.
+notes: >-
+  No public rate-limit figures are available. Values below are placeholders to
+  be reconciled against the gated reference or your Lorikeet account
+  configuration; do not treat them as confirmed.
+sources:
+- https://docs.lorikeetcx.ai/guides/quickstart
+- https://www.lorikeetcx.ai/articles/ai-support-secure-api-webhook-integrations-2026
+responseCodes:
+  throttled: 429
+limits:
+- name: Conversations API (requests)
+  scope: account
+  metric: requests
+  limit: see provider (account/contract governed)
+  notes: Not publicly documented; governed per account/contract.
+- name: Messages API (requests)
+  scope: account
+  metric: requests
+  limit: see provider (account/contract governed)
+  notes: Not publicly documented.
+- name: Webhook Deliveries
+  scope: account
+  metric: events
+  limit: see provider
+  notes: Outbound event deliveries; retried on failure per Lorikeet's delivery policy.
+- name: Knowledge Ingestion
+  scope: account
+  metric: jobs
+  limit: see provider
+  notes: Ingestion is asynchronous; concurrency governed per account.
+policies:
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on HTTP 429.
+- name: Contract-Governed Volume
+  description: Effective throughput is bounded by contracted resolution/conversation volume rather than a public per-endpoint RPM.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

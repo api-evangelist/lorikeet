@@ -1,0 +1,263 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lorikeet API",
+    "version": "0.1.0-modeled",
+    "description": "Modeled from Lorikeet's public integration and security materials. The authoritative reference at docs.lorikeetcx.ai is access-gated; endpoints and base URL below are best-effort and unverified. Auth is a Bearer API key."
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Conversations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lorikeetcx.ai/v1/conversations",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"end_user\": { \"id\": \"user_123\", \"email\": \"user@example.com\" },\n  \"message\": \"I was charged twice for my subscription.\",\n  \"channel\": \"chat\"\n}"
+            }
+          },
+          "docs": "Start a new conversation (support ticket) for the Lorikeet AI agent to work."
+        },
+        {
+          "info": {
+            "name": "List conversations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lorikeetcx.ai/v1/conversations"
+          },
+          "docs": "List conversations, optionally filtered by status."
+        },
+        {
+          "info": {
+            "name": "Retrieve a conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lorikeetcx.ai/v1/conversations/:conversation_id",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "path",
+                "description": "The conversation to retrieve."
+              }
+            ]
+          },
+          "docs": "Retrieve the current state of a conversation, including status and resolution."
+        },
+        {
+          "info": {
+            "name": "Continue a conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lorikeetcx.ai/v1/conversations/:conversation_id",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "path",
+                "description": "The conversation to continue."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\n  \"message\": \"Here is my order number: 10245.\"\n}"
+            }
+          },
+          "docs": "Continue an existing conversation with a new end-user message."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lorikeetcx.ai/v1/conversations/:conversation_id/messages",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List messages for a conversation."
+        },
+        {
+          "info": {
+            "name": "Post a message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lorikeetcx.ai/v1/conversations/:conversation_id/messages",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\n  \"role\": \"end_user\",\n  \"content\": \"Any update on my refund?\"\n}"
+            }
+          },
+          "docs": "Append a message to a conversation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List webhook subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lorikeetcx.ai/v1/webhooks"
+          },
+          "docs": "List registered webhook subscriptions."
+        },
+        {
+          "info": {
+            "name": "Create a webhook subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lorikeetcx.ai/v1/webhooks",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"url\": \"https://example.com/hooks/lorikeet\",\n  \"events\": [\"conversation.resolved\", \"conversation.escalated\"],\n  \"secret\": \"whsec_...\"\n}"
+            }
+          },
+          "docs": "Register an endpoint to receive HMAC-signed Lorikeet events."
+        },
+        {
+          "info": {
+            "name": "Delete a webhook subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.lorikeetcx.ai/v1/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a webhook subscription."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Knowledge",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List knowledge sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lorikeetcx.ai/v1/knowledge/sources"
+          },
+          "docs": "List configured knowledge sources."
+        },
+        {
+          "info": {
+            "name": "Ingest a knowledge source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lorikeetcx.ai/v1/knowledge/sources",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"type\": \"url\",\n  \"url\": \"https://help.example.com/refunds\",\n  \"title\": \"Refund policy\"\n}"
+            }
+          },
+          "docs": "Submit a document, URL, or article for asynchronous ingestion."
+        },
+        {
+          "info": {
+            "name": "Retrieve a knowledge source",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lorikeetcx.ai/v1/knowledge/sources/:source_id",
+            "params": [
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a knowledge source and its ingestion status."
+        },
+        {
+          "info": {
+            "name": "Delete a knowledge source",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.lorikeetcx.ai/v1/knowledge/sources/:source_id",
+            "params": [
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a knowledge source."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

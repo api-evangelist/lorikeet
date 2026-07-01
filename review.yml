@@ -1,0 +1,86 @@
+aid: lorikeet
+name: Lorikeet
+review:
+  question: Does Lorikeet expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-01'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Lorikeet's event-driven surface is
+    delivered via HTTP webhooks (inbound HMAC-signed deliveries and outbound
+    async request/response callbacks), not WebSocket or SSE. Under current
+    API Evangelist scope, HTTP webhooks are modeled as REST callbacks in the
+    OpenAPI/description layer rather than as an AsyncAPI channel, and the
+    authoritative reference is access-gated so no event schema could be
+    field-verified.
+findings:
+  summary: |
+    Lorikeet (Lorikeet CX) does not publish a documented public WebSocket API.
+    Public materials describe three integration patterns - a synchronous
+    scoped-credential HTTP API (preferred), inbound HMAC-signed webhooks, and
+    outbound async HTTP request/response callbacks - all over HTTPS. No
+    realtime bidirectional WebSocket (ws:// or wss://) endpoint is documented.
+    The authoritative API reference at docs.lorikeetcx.ai is gated behind a
+    customer access code, so the concrete conversations/messages/webhooks/
+    knowledge endpoints, base URL, and schemas in this catalog entry are
+    MODELED from public integration and security materials and marked as such,
+    not field-verified.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.lorikeetcx.ai/v1
+      documented: false
+      note: Modeled base URL; the real API host is only in the gated reference.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: >-
+        Inbound HMAC-signed webhooks (verified before the agent acts) and
+        outbound async request/response callbacks are described in public
+        security/integration articles. HTTP callbacks, not WebSocket.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in any public Lorikeet material as of the review date.
+  endpointsConfirmedRest: []
+  endpointsModeledRest:
+    - POST   https://api.lorikeetcx.ai/v1/conversations
+    - GET    https://api.lorikeetcx.ai/v1/conversations
+    - GET    https://api.lorikeetcx.ai/v1/conversations/{conversation_id}
+    - POST   https://api.lorikeetcx.ai/v1/conversations/{conversation_id}
+    - GET    https://api.lorikeetcx.ai/v1/conversations/{conversation_id}/messages
+    - POST   https://api.lorikeetcx.ai/v1/conversations/{conversation_id}/messages
+    - GET    https://api.lorikeetcx.ai/v1/webhooks
+    - POST   https://api.lorikeetcx.ai/v1/webhooks
+    - DELETE https://api.lorikeetcx.ai/v1/webhooks/{webhook_id}
+    - GET    https://api.lorikeetcx.ai/v1/knowledge/sources
+    - POST   https://api.lorikeetcx.ai/v1/knowledge/sources
+    - GET    https://api.lorikeetcx.ai/v1/knowledge/sources/{source_id}
+    - DELETE https://api.lorikeetcx.ai/v1/knowledge/sources/{source_id}
+sources:
+  - url: https://docs.lorikeetcx.ai/guides/quickstart
+    type: Documentation
+    note: Quickstart reference; full API reference gated behind an access code.
+  - url: https://www.lorikeetcx.ai/articles/ai-support-secure-api-webhook-integrations-2026
+    type: Documentation
+    note: >-
+      Describes synchronous scoped-credential API, inbound HMAC-signed webhooks,
+      outbound async request/response, auth methods (OAuth2/JWT/API key/Basic/HMAC/M2M),
+      and typed no-code "tools". No WebSocket.
+  - url: https://www.lorikeetcx.ai/blog/lorikeet-ai-a-technical-deep-dive
+    type: Documentation
+    note: Describes workflow-based orchestration architecture; no transport/WebSocket detail.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket surface exists and the event surface is HTTP webhooks. No
+    AsyncAPI document was created. apis.yml, an OpenAPI document, and Postman /
+    Open Collection artifacts were authored to model the conversations,
+    messages, webhooks/events, actions/tools, and knowledge-ingestion surface
+    from public materials, with explicit honesty notes that the authoritative
+    reference is access-gated and the modeled endpoints are unverified.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

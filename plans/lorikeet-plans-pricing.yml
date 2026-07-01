@@ -1,0 +1,73 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Lorikeet
+providerId: lorikeet
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: false
+tags:
+- AI
+- Customer Support
+- AI Agent
+- Support Automation
+- Plans
+description: >-
+  Lorikeet does not publish self-serve, list-price API tiers. It sells an
+  enterprise AI customer support agent through a sales-quoted, outcome- /
+  resolution-based commercial model: pricing is oriented around tickets the
+  agent actually resolves (per-resolution) rather than per-seat or per-API-call.
+  Access to the agent, the workflow builder, integrations, and the API is
+  provisioned as part of a contract. Exact rates are quoted by Lorikeet sales
+  and not disclosed publicly, so no dollar figures are asserted here.
+notes: >-
+  Outcome/resolution-based pricing and the absence of public list prices are
+  inferred from Lorikeet's positioning as an enterprise AI support agent and
+  from third-party reviews; confirm the current commercial model and any
+  minimums directly with Lorikeet sales during reconciliation.
+sources:
+- https://lorikeet.ai
+- https://www.lorikeetcx.ai/
+- https://docs.lorikeetcx.ai/guides/quickstart
+plans:
+- id: lorikeet-enterprise
+  name: Enterprise (sales-quoted)
+  type: enterprise
+  description: >-
+    Negotiated agreement covering the Lorikeet AI agent, workflow/skills builder,
+    helpdesk and system integrations, and API/webhook access. Commonly structured
+    around resolution-based (per-resolved-ticket) pricing with a negotiated
+    commitment. Contact Lorikeet sales.
+  entries:
+  - label: Per-Resolution Pricing
+    name: per_resolution
+    type: usage
+    metric: resolutions
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: sales-quoted (outcome / resolution-based)
+    userMultiplied: false
+  - label: Enterprise Agreement
+    name: enterprise_agreement
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: AI Customer Support Agent
+  - name: Workflow / Skills Builder
+  - name: Conversations API
+  - name: Webhooks & Events
+  - name: Actions / Tools Integrations
+  - name: Knowledge Ingestion
+  - name: Helpdesk Integrations (Zendesk, Intercom, Front)
+  - name: Per-Step Audit Trail
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
