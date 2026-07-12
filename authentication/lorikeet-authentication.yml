@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/lorikeet-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: 'Bearer API key issued to your Lorikeet account. Send as `Authorization: Bearer
+    <API_KEY>`. Lorikeet also supports OAuth2, JWT bearer, Basic, HMAC, and M2M flows for tool/action
+    integrations into your systems; those secure Lorikeet''s outbound calls rather than this
+    inbound management API.'
+  sources:
+  - openapi/lorikeet-openapi.yml

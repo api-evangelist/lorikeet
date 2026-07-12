@@ -137,6 +137,10 @@ apis:
     confirm knowledge is a first-class concept; the exact ingestion endpoints are
     access-gated and modeled here honestly rather than asserted as verified.
 common:
+- type: DomainSecurity
+  url: security/lorikeet-domain-security.yml
+- type: Authentication
+  url: authentication/lorikeet-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/lorikeetcx
 - type: Website
@@ -149,6 +153,8 @@ common:
   url: rate-limits/lorikeet-rate-limits.yml
 - type: FinOps
   url: finops/lorikeet-finops.yml
+- url: https://www.lorikeetcx.ai/articles
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
