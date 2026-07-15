@@ -137,6 +137,8 @@ apis:
     confirm knowledge is a first-class concept; the exact ingestion endpoints are
     access-gated and modeled here honestly rather than asserted as verified.
 common:
+- type: AgenticAccess
+  url: agentic-access/lorikeet-agentic-access.yml
 - type: DomainSecurity
   url: security/lorikeet-domain-security.yml
 - type: Authentication
