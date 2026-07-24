@@ -1,0 +1,273 @@
+openapi: 3.0.3
+info:
+  title: Lorikeet Conversations API
+  description: 'Programmatic surface for Lorikeet (Lorikeet CX), an AI customer support agent for complex and regulated businesses. The API centers on conversations (support tickets handled by the AI agent), messages within those conversations, webhook subscriptions and events, and knowledge ingestion.
+
+
+    IMPORTANT (honesty note): Lorikeet''s authoritative API reference at docs.lorikeetcx.ai is gated behind a customer access code. The paths, schemas, and the base URL below are MODELED from Lorikeet''s public integration and security materials (synchronous scoped-credential API, inbound HMAC-signed webhooks, outbound async request/response, typed no-code "tools", and a per-step audit trail) and from common conventions for this class of AI support agent. They should be treated as a best-effort, plausible model - not field-verified contract - and reconciled against the official reference once access is available. Authentication is a Bearer API key.'
+  version: 0.1.0-modeled
+  contact:
+    name: Lorikeet
+    url: https://lorikeet.ai
+  termsOfService: https://lorikeet.ai
+servers:
+- url: https://api.lorikeetcx.ai/v1
+  description: Modeled base URL. The public site is lorikeet.ai and docs live at docs.lorikeetcx.ai; the exact API host is not published outside the gated reference.
+security:
+- bearerAuth: []
+tags:
+- name: Conversations
+  description: Create, continue, and inspect AI-agent-handled support conversations.
+paths:
+  /conversations:
+    post:
+      operationId: createConversation
+      tags:
+      - Conversations
+      summary: Create a conversation
+      description: Start a new conversation (support ticket) for the Lorikeet AI agent to work. An optional first end-user message and end-user / context metadata can be supplied so the workflow orchestration layer can begin resolving immediately.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConversationRequest'
+      responses:
+        '201':
+          description: Conversation created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+    get:
+      operationId: listConversations
+      tags:
+      - Conversations
+      summary: List conversations
+      parameters:
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Cursor'
+      - name: status
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/ConversationStatus'
+      responses:
+        '200':
+          description: A page of conversations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /conversations/{conversation_id}:
+    parameters:
+    - $ref: '#/components/parameters/ConversationId'
+    get:
+      operationId: getConversation
+      tags:
+      - Conversations
+      summary: Retrieve a conversation
+      description: Retrieve the current state of a conversation, including status, resolution, and whether it has been escalated to a human agent.
+      responses:
+        '200':
+          description: The conversation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversation'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: continueConversation
+      tags:
+      - Conversations
+      summary: Continue a conversation
+      description: Continue an existing conversation by supplying a new end-user message. The agent advances its workflow and returns the updated conversation (including any new agent messages).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContinueConversationRequest'
+      responses:
+        '200':
+          description: Updated conversation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversation'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Opaque pagination cursor from a prior response.
+    ConversationId:
+      name: conversation_id
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ConversationList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Conversation'
+        next_cursor:
+          type: string
+          nullable: true
+    EndUser:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Your stable identifier for the end user.
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+          description: Traits used by workflows (e.g. plan, region, account state).
+    Conversation:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          $ref: '#/components/schemas/ConversationStatus'
+        channel:
+          type: string
+        end_user:
+          $ref: '#/components/schemas/EndUser'
+        resolution:
+          type: string
+          nullable: true
+          description: Summary of how the agent resolved the conversation, if resolved.
+        escalated:
+          type: boolean
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    ConversationStatus:
+      type: string
+      enum:
+      - open
+      - resolved
+      - escalated
+      - closed
+      description: Lifecycle of a conversation. `escalated` indicates the agent handed off to a human per the workflow's escalation rules.
+    CreateConversationRequest:
+      type: object
+      properties:
+        end_user:
+          $ref: '#/components/schemas/EndUser'
+        message:
+          type: string
+          description: Optional first end-user message.
+        channel:
+          type: string
+          description: Origin channel (e.g. chat, email, voice).
+          enum:
+          - chat
+          - email
+          - voice
+        metadata:
+          type: object
+          additionalProperties: true
+          description: Arbitrary context passed to the agent's workflows.
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+        conversation_id:
+          type: string
+        role:
+          type: string
+          enum:
+          - end_user
+          - agent
+          - system
+        content:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+    ContinueConversationRequest:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: New end-user message to advance the conversation.
+        metadata:
+          type: object
+          additionalProperties: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Bearer API key issued to your Lorikeet account. Send as `Authorization: Bearer <API_KEY>`. Lorikeet also supports OAuth2, JWT bearer, Basic, HMAC, and M2M flows for tool/action integrations into your systems; those secure Lorikeet''s outbound calls rather than this inbound management API.'
