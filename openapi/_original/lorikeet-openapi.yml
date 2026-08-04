@@ -1,0 +1,579 @@
+openapi: 3.0.3
+info:
+  title: Lorikeet API
+  description: >-
+    Programmatic surface for Lorikeet (Lorikeet CX), an AI customer support agent
+    for complex and regulated businesses. The API centers on conversations
+    (support tickets handled by the AI agent), messages within those
+    conversations, webhook subscriptions and events, and knowledge ingestion.
+
+
+    IMPORTANT (honesty note): Lorikeet's authoritative API reference at
+    docs.lorikeetcx.ai is gated behind a customer access code. The paths, schemas,
+    and the base URL below are MODELED from Lorikeet's public integration and
+    security materials (synchronous scoped-credential API, inbound HMAC-signed
+    webhooks, outbound async request/response, typed no-code "tools", and a
+    per-step audit trail) and from common conventions for this class of AI support
+    agent. They should be treated as a best-effort, plausible model - not
+    field-verified contract - and reconciled against the official reference once
+    access is available. Authentication is a Bearer API key.
+  version: 0.1.0-modeled
+  contact:
+    name: Lorikeet
+    url: https://lorikeet.ai
+  termsOfService: https://lorikeet.ai
+servers:
+  - url: https://api.lorikeetcx.ai/v1
+    description: >-
+      Modeled base URL. The public site is lorikeet.ai and docs live at
+      docs.lorikeetcx.ai; the exact API host is not published outside the gated
+      reference.
+security:
+  - bearerAuth: []
+tags:
+  - name: Conversations
+    description: Create, continue, and inspect AI-agent-handled support conversations.
+  - name: Messages
+    description: Post and list messages within a conversation.
+  - name: Webhooks
+    description: Manage webhook subscriptions and receive Lorikeet events.
+  - name: Knowledge
+    description: Ingest and manage knowledge sources the agent reasons over.
+paths:
+  /conversations:
+    post:
+      operationId: createConversation
+      tags:
+        - Conversations
+      summary: Create a conversation
+      description: >-
+        Start a new conversation (support ticket) for the Lorikeet AI agent to
+        work. An optional first end-user message and end-user / context metadata
+        can be supplied so the workflow orchestration layer can begin resolving
+        immediately.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConversationRequest'
+      responses:
+        '201':
+          description: Conversation created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+    get:
+      operationId: listConversations
+      tags:
+        - Conversations
+      summary: List conversations
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+        - name: status
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/ConversationStatus'
+      responses:
+        '200':
+          description: A page of conversations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /conversations/{conversation_id}:
+    parameters:
+      - $ref: '#/components/parameters/ConversationId'
+    get:
+      operationId: getConversation
+      tags:
+        - Conversations
+      summary: Retrieve a conversation
+      description: >-
+        Retrieve the current state of a conversation, including status, resolution,
+        and whether it has been escalated to a human agent.
+      responses:
+        '200':
+          description: The conversation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversation'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: continueConversation
+      tags:
+        - Conversations
+      summary: Continue a conversation
+      description: >-
+        Continue an existing conversation by supplying a new end-user message.
+        The agent advances its workflow and returns the updated conversation
+        (including any new agent messages).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContinueConversationRequest'
+      responses:
+        '200':
+          description: Updated conversation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversation'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /conversations/{conversation_id}/messages:
+    parameters:
+      - $ref: '#/components/parameters/ConversationId'
+    get:
+      operationId: listMessages
+      tags:
+        - Messages
+      summary: List messages
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: A page of messages for the conversation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageList'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createMessage
+      tags:
+        - Messages
+      summary: Post a message
+      description: Append a message to a conversation.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMessageRequest'
+      responses:
+        '201':
+          description: Message created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /webhooks:
+    get:
+      operationId: listWebhooks
+      tags:
+        - Webhooks
+      summary: List webhook subscriptions
+      responses:
+        '200':
+          description: Registered webhook subscriptions.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WebhookSubscription'
+    post:
+      operationId: createWebhook
+      tags:
+        - Webhooks
+      summary: Create a webhook subscription
+      description: >-
+        Register an endpoint to receive Lorikeet events. Deliveries are signed so
+        the receiver can cryptographically verify them (HMAC) before acting.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWebhookRequest'
+      responses:
+        '201':
+          description: Webhook subscription created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookSubscription'
+  /webhooks/{webhook_id}:
+    parameters:
+      - name: webhook_id
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      operationId: deleteWebhook
+      tags:
+        - Webhooks
+      summary: Delete a webhook subscription
+      responses:
+        '204':
+          description: Webhook subscription deleted.
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /knowledge/sources:
+    get:
+      operationId: listKnowledgeSources
+      tags:
+        - Knowledge
+      summary: List knowledge sources
+      responses:
+        '200':
+          description: Configured knowledge sources.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KnowledgeSource'
+    post:
+      operationId: ingestKnowledgeSource
+      tags:
+        - Knowledge
+      summary: Ingest a knowledge source
+      description: >-
+        Submit a document, URL, or help-center article for ingestion into the
+        knowledge base the agent reasons over. Ingestion is asynchronous; poll the
+        returned source for status.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IngestKnowledgeRequest'
+      responses:
+        '202':
+          description: Ingestion accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnowledgeSource'
+  /knowledge/sources/{source_id}:
+    parameters:
+      - name: source_id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: getKnowledgeSource
+      tags:
+        - Knowledge
+      summary: Retrieve a knowledge source
+      responses:
+        '200':
+          description: The knowledge source and its ingestion status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnowledgeSource'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteKnowledgeSource
+      tags:
+        - Knowledge
+      summary: Delete a knowledge source
+      responses:
+        '204':
+          description: Knowledge source deleted.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Bearer API key issued to your Lorikeet account. Send as
+        `Authorization: Bearer <API_KEY>`. Lorikeet also supports OAuth2, JWT
+        bearer, Basic, HMAC, and M2M flows for tool/action integrations into your
+        systems; those secure Lorikeet's outbound calls rather than this inbound
+        management API.
+  parameters:
+    ConversationId:
+      name: conversation_id
+      in: path
+      required: true
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Opaque pagination cursor from a prior response.
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ConversationStatus:
+      type: string
+      enum:
+        - open
+        - resolved
+        - escalated
+        - closed
+      description: >-
+        Lifecycle of a conversation. `escalated` indicates the agent handed off to
+        a human per the workflow's escalation rules.
+    CreateConversationRequest:
+      type: object
+      properties:
+        end_user:
+          $ref: '#/components/schemas/EndUser'
+        message:
+          type: string
+          description: Optional first end-user message.
+        channel:
+          type: string
+          description: Origin channel (e.g. chat, email, voice).
+          enum:
+            - chat
+            - email
+            - voice
+        metadata:
+          type: object
+          additionalProperties: true
+          description: Arbitrary context passed to the agent's workflows.
+    ContinueConversationRequest:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: New end-user message to advance the conversation.
+        metadata:
+          type: object
+          additionalProperties: true
+    Conversation:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          $ref: '#/components/schemas/ConversationStatus'
+        channel:
+          type: string
+        end_user:
+          $ref: '#/components/schemas/EndUser'
+        resolution:
+          type: string
+          nullable: true
+          description: Summary of how the agent resolved the conversation, if resolved.
+        escalated:
+          type: boolean
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    ConversationList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Conversation'
+        next_cursor:
+          type: string
+          nullable: true
+    EndUser:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Your stable identifier for the end user.
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+          description: Traits used by workflows (e.g. plan, region, account state).
+    CreateMessageRequest:
+      type: object
+      required:
+        - role
+        - content
+      properties:
+        role:
+          type: string
+          enum:
+            - end_user
+            - agent
+          description: Author of the message.
+        content:
+          type: string
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+        conversation_id:
+          type: string
+        role:
+          type: string
+          enum:
+            - end_user
+            - agent
+            - system
+        content:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    MessageList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        next_cursor:
+          type: string
+          nullable: true
+    CreateWebhookRequest:
+      type: object
+      required:
+        - url
+        - events
+      properties:
+        url:
+          type: string
+          format: uri
+          description: HTTPS endpoint that will receive signed event deliveries.
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventType'
+        secret:
+          type: string
+          description: >-
+            Shared secret used to compute the HMAC signature on deliveries so you
+            can verify authenticity before acting.
+    WebhookSubscription:
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventType'
+        created_at:
+          type: string
+          format: date-time
+    EventType:
+      type: string
+      enum:
+        - conversation.created
+        - conversation.updated
+        - conversation.resolved
+        - conversation.escalated
+        - message.created
+      description: Lorikeet event types delivered to webhook subscribers.
+    IngestKnowledgeRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - url
+            - document
+            - article
+        url:
+          type: string
+          format: uri
+          description: Source URL when `type` is `url` or `article`.
+        title:
+          type: string
+        content:
+          type: string
+          description: Inline content when `type` is `document`.
+    KnowledgeSource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+            - url
+            - document
+            - article
+        title:
+          type: string
+        status:
+          type: string
+          enum:
+            - pending
+            - processing
+            - ready
+            - failed
+          description: Asynchronous ingestion status.
+        created_at:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
