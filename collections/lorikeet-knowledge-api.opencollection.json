@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lorikeet Conversations Knowledge API",
+    "version": "0.1.0-modeled"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Knowledge",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List knowledge sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lorikeetcx.ai/v1/knowledge/sources"
+          },
+          "docs": "List knowledge sources"
+        },
+        {
+          "info": {
+            "name": "Ingest a knowledge source",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lorikeetcx.ai/v1/knowledge/sources",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a document, URL, or help-center article for ingestion into the knowledge base the agent reasons over. Ingestion is asynchronous; poll the returned source for status."
+        },
+        {
+          "info": {
+            "name": "Retrieve a knowledge source",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lorikeetcx.ai/v1/knowledge/sources/:source_id",
+            "params": [
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a knowledge source"
+        },
+        {
+          "info": {
+            "name": "Delete a knowledge source",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.lorikeetcx.ai/v1/knowledge/sources/:source_id",
+            "params": [
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a knowledge source"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

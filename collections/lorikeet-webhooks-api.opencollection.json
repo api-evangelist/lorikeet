@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lorikeet Conversations Webhooks API",
+    "version": "0.1.0-modeled"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List webhook subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lorikeetcx.ai/v1/webhooks"
+          },
+          "docs": "List webhook subscriptions"
+        },
+        {
+          "info": {
+            "name": "Create a webhook subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lorikeetcx.ai/v1/webhooks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register an endpoint to receive Lorikeet events. Deliveries are signed so the receiver can cryptographically verify them (HMAC) before acting."
+        },
+        {
+          "info": {
+            "name": "Delete a webhook subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.lorikeetcx.ai/v1/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a webhook subscription"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

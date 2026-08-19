@@ -1,0 +1,728 @@
+{
+  "item": [
+    {
+      "id": "093a90e3-b1dc-4004-9d70-1f49ddea3c3c",
+      "name": "Conversations",
+      "description": {
+        "content": "Create, continue, and inspect AI-agent-handled support conversations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "14a89237-bbc9-475f-b573-f20b7f651e15",
+          "name": "Create a conversation",
+          "request": {
+            "name": "Create a conversation",
+            "description": {
+              "content": "Start a new conversation (support ticket) for the Lorikeet AI agent to work. An optional first end-user message and end-user / context metadata can be supplied so the workflow orchestration layer can begin resolving immediately.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"end_user\": {\n    \"id\": \"<string>\",\n    \"email\": \"<email>\",\n    \"name\": \"<string>\",\n    \"attributes\": {\n      \"key_0\": false\n    }\n  },\n  \"message\": \"<string>\",\n  \"channel\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": \"string\",\n    \"key_2\": true\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1d883a43-7f28-40b8-8c26-ab2b01b36278",
+              "name": "Conversation created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"end_user\": {\n    \"id\": \"<string>\",\n    \"email\": \"<email>\",\n    \"name\": \"<string>\",\n    \"attributes\": {\n      \"key_0\": false,\n      \"key_1\": false,\n      \"key_2\": 5660\n    }\n  },\n  \"message\": \"<string>\",\n  \"channel\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": 2596.234003875569,\n    \"key_1\": 4036\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"open\",\n  \"channel\": \"string\",\n  \"end_user\": {\n    \"id\": \"<string>\",\n    \"email\": \"<email>\",\n    \"name\": \"<string>\",\n    \"attributes\": {\n      \"key_0\": 2302,\n      \"key_1\": true\n    }\n  },\n  \"resolution\": \"string\",\n  \"escalated\": true,\n  \"messages\": [\n    {\n      \"id\": \"string\",\n      \"conversation_id\": \"string\",\n      \"role\": \"system\",\n      \"content\": \"string\",\n      \"created_at\": \"1988-05-31T05:45:02.679Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"conversation_id\": \"string\",\n      \"role\": \"end_user\",\n      \"content\": \"string\",\n      \"created_at\": \"1982-06-25T01:43:50.936Z\"\n    }\n  ],\n  \"created_at\": \"2006-09-16T11:55:51.371Z\",\n  \"updated_at\": \"1999-12-05T04:06:40.486Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d1877eb-a6e7-464d-a0f9-10c2f836e850",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"end_user\": {\n    \"id\": \"<string>\",\n    \"email\": \"<email>\",\n    \"name\": \"<string>\",\n    \"attributes\": {\n      \"key_0\": false,\n      \"key_1\": false,\n      \"key_2\": 5660\n    }\n  },\n  \"message\": \"<string>\",\n  \"channel\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": 2596.234003875569,\n    \"key_1\": 4036\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92fc28ea-a432-4c53-98d2-da2b7d542230",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"end_user\": {\n    \"id\": \"<string>\",\n    \"email\": \"<email>\",\n    \"name\": \"<string>\",\n    \"attributes\": {\n      \"key_0\": false,\n      \"key_1\": false,\n      \"key_2\": 5660\n    }\n  },\n  \"message\": \"<string>\",\n  \"channel\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": 2596.234003875569,\n    \"key_1\": 4036\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d3e0514d-54de-44eb-ad7f-3241b5fd4504",
+          "name": "List conversations",
+          "request": {
+            "name": "List conversations",
+            "description": {},
+            "url": {
+              "path": [
+                "conversations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Opaque pagination cursor from a prior response."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fb0180bd-33d9-49ec-86a6-785fb2536806",
+              "name": "A page of conversations.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"status\": \"<string>\",\n      \"channel\": \"string\",\n      \"end_user\": {\n        \"id\": \"<string>\",\n        \"email\": \"<email>\",\n        \"name\": \"<string>\",\n        \"attributes\": {\n          \"key_0\": 1326,\n          \"key_1\": true\n        }\n      },\n      \"resolution\": \"string\",\n      \"escalated\": true,\n      \"messages\": [\n        {\n          \"id\": \"string\",\n          \"conversation_id\": \"string\",\n          \"role\": \"end_user\",\n          \"content\": \"string\",\n          \"created_at\": \"1970-05-07T09:03:13.878Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"conversation_id\": \"string\",\n          \"role\": \"system\",\n          \"content\": \"string\",\n          \"created_at\": \"1963-06-29T00:22:09.497Z\"\n        }\n      ],\n      \"created_at\": \"1969-07-10T20:16:40.263Z\",\n      \"updated_at\": \"2008-10-14T11:11:19.130Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"status\": \"<string>\",\n      \"channel\": \"string\",\n      \"end_user\": {\n        \"id\": \"<string>\",\n        \"email\": \"<email>\",\n        \"name\": \"<string>\",\n        \"attributes\": {\n          \"key_0\": false,\n          \"key_1\": 428,\n          \"key_2\": 1476\n        }\n      },\n      \"resolution\": \"string\",\n      \"escalated\": true,\n      \"messages\": [\n        {\n          \"id\": \"string\",\n          \"conversation_id\": \"string\",\n          \"role\": \"agent\",\n          \"content\": \"string\",\n          \"created_at\": \"1989-03-14T15:43:59.620Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"conversation_id\": \"string\",\n          \"role\": \"end_user\",\n          \"content\": \"string\",\n          \"created_at\": \"1960-08-30T08:28:05.664Z\"\n        }\n      ],\n      \"created_at\": \"2006-08-23T01:47:23.584Z\",\n      \"updated_at\": \"2004-11-12T21:06:55.186Z\"\n    }\n  ],\n  \"next_cursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b7a4290-c1b1-4a52-b816-66cfa8b2ff77",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "74f6577a-8246-4792-af0d-e9269692ee4d",
+          "name": "Retrieve a conversation",
+          "request": {
+            "name": "Retrieve a conversation",
+            "description": {
+              "content": "Retrieve the current state of a conversation, including status, resolution, and whether it has been escalated to a human agent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversations",
+                ":conversation_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversation_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8f8f0cb4-6f40-488d-9cc1-a097c05f4b0a",
+              "name": "The conversation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"<string>\",\n  \"channel\": \"string\",\n  \"end_user\": {\n    \"id\": \"<string>\",\n    \"email\": \"<email>\",\n    \"name\": \"<string>\",\n    \"attributes\": {\n      \"key_0\": 2539.954936057551\n    }\n  },\n  \"resolution\": \"string\",\n  \"escalated\": false,\n  \"messages\": [\n    {\n      \"id\": \"string\",\n      \"conversation_id\": \"string\",\n      \"role\": \"agent\",\n      \"content\": \"string\",\n      \"created_at\": \"1975-06-12T12:56:45.402Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"conversation_id\": \"string\",\n      \"role\": \"system\",\n      \"content\": \"string\",\n      \"created_at\": \"1986-02-28T12:53:46.863Z\"\n    }\n  ],\n  \"created_at\": \"2020-04-07T06:46:33.863Z\",\n  \"updated_at\": \"1983-10-08T13:54:00.817Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2ad1c12-0cfb-49df-9319-97080b2aaf68",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "40dfec65-88af-419a-98ce-b33b1bfe6c36",
+          "name": "Continue a conversation",
+          "request": {
+            "name": "Continue a conversation",
+            "description": {
+              "content": "Continue an existing conversation by supplying a new end-user message. The agent advances its workflow and returns the updated conversation (including any new agent messages).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conversations",
+                ":conversation_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "conversation_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": 72.90370371705323\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "07d86fcd-9c87-454f-8103-34d6ad54cbc3",
+              "name": "Updated conversation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"message\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": 3659,\n    \"key_1\": true,\n    \"key_2\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"<string>\",\n  \"channel\": \"string\",\n  \"end_user\": {\n    \"id\": \"<string>\",\n    \"email\": \"<email>\",\n    \"name\": \"<string>\",\n    \"attributes\": {\n      \"key_0\": 2539.954936057551\n    }\n  },\n  \"resolution\": \"string\",\n  \"escalated\": false,\n  \"messages\": [\n    {\n      \"id\": \"string\",\n      \"conversation_id\": \"string\",\n      \"role\": \"agent\",\n      \"content\": \"string\",\n      \"created_at\": \"1975-06-12T12:56:45.402Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"conversation_id\": \"string\",\n      \"role\": \"system\",\n      \"content\": \"string\",\n      \"created_at\": \"1986-02-28T12:53:46.863Z\"\n    }\n  ],\n  \"created_at\": \"2020-04-07T06:46:33.863Z\",\n  \"updated_at\": \"1983-10-08T13:54:00.817Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87dc957e-45b2-4736-b0cb-442d4028e4d6",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversations",
+                    ":conversation_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "conversation_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"message\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": 3659,\n    \"key_1\": true,\n    \"key_2\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.lorikeetcx.ai/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "61a484d9-7746-4bee-a242-19c521c2fafc",
+    "name": "Lorikeet Conversations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Programmatic surface for Lorikeet (Lorikeet CX), an AI customer support agent for complex and regulated businesses. The API centers on conversations (support tickets handled by the AI agent), messages within those conversations, webhook subscriptions and events, and knowledge ingestion.\n\nIMPORTANT (honesty note): Lorikeet's authoritative API reference at docs.lorikeetcx.ai is gated behind a customer access code. The paths, schemas, and the base URL below are MODELED from Lorikeet's public integration and security materials (synchronous scoped-credential API, inbound HMAC-signed webhooks, outbound async request/response, typed no-code \"tools\", and a per-step audit trail) and from common conventions for this class of AI support agent. They should be treated as a best-effort, plausible model - not field-verified contract - and reconciled against the official reference once access is available. Authentication is a Bearer API key.\n\nContact Support:\n Name: Lorikeet",
+      "type": "text/plain"
+    }
+  }
+}

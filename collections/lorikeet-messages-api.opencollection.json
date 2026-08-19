@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lorikeet Conversations Messages API",
+    "version": "0.1.0-modeled"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lorikeetcx.ai/v1/conversations/:conversation_id/messages",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Opaque pagination cursor from a prior response."
+              }
+            ]
+          },
+          "docs": "List messages"
+        },
+        {
+          "info": {
+            "name": "Post a message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lorikeetcx.ai/v1/conversations/:conversation_id/messages",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Append a message to a conversation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

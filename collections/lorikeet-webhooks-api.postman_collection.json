@@ -1,0 +1,356 @@
+{
+  "item": [
+    {
+      "id": "9ebab1d9-11b2-4b17-afc6-e67f380b102c",
+      "name": "Webhooks",
+      "description": {
+        "content": "Manage webhook subscriptions and receive Lorikeet events.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8e81abd6-d11d-4ba3-9ed6-625b30a12fc3",
+          "name": "List webhook subscriptions",
+          "request": {
+            "name": "List webhook subscriptions",
+            "description": {},
+            "url": {
+              "path": [
+                "webhooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "613328d8-597f-498d-b9cc-6bd6966f672d",
+              "name": "Registered webhook subscriptions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"url\": \"https://CVxnoaJrTgPmOkbkzpHeFgcsEhgkxPXY.mrmVCLL4a5x1lZgmFK0n2-GBT3Ejbu8d5fXG\",\n    \"events\": [\n      \"conversation.resolved\",\n      \"conversation.escalated\"\n    ],\n    \"created_at\": \"1980-06-26T13:38:26.439Z\"\n  },\n  {\n    \"id\": \"string\",\n    \"url\": \"http://cAZQkcPLJYZLEJDCKv.eyx5uThYWVLAo,7H,6NxbSBdELRwYk4QWJwS8Y+eelrinea7hRcwEX9XsuNr7f\",\n    \"events\": [\n      \"conversation.created\",\n      \"conversation.escalated\"\n    ],\n    \"created_at\": \"1961-04-22T22:42:23.499Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed19880e-0588-46f0-8119-ab5c4da522eb",
+          "name": "Create a webhook subscription",
+          "request": {
+            "name": "Create a webhook subscription",
+            "description": {
+              "content": "Register an endpoint to receive Lorikeet events. Deliveries are signed so the receiver can cryptographically verify them (HMAC) before acting.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "webhooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"secret\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e21e523b-504e-42e6-a0d9-8db61337c166",
+              "name": "Webhook subscription created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<uri>\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"secret\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"url\": \"http://VihszlGrKqdetVxQ.vwxiefTsRgQCpmF9D3P.LwH2nwyAQYXO9a3z,,RzbYMGX3bRZhPUptH3KmydhSTEpn.stxGb-LMA8\",\n  \"events\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"created_at\": \"1951-02-21T07:42:46.255Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c1bc74c-4040-4315-9a8b-3a3e63254aef",
+          "name": "Delete a webhook subscription",
+          "request": {
+            "name": "Delete a webhook subscription",
+            "description": {},
+            "url": {
+              "path": [
+                "webhooks",
+                ":webhook_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "webhook_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a99c4876-cae7-4547-a9b7-0dee3306084f",
+              "name": "Webhook subscription deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhook_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c77b38b5-461e-4348-b72b-a1562d4179da",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "webhook_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.lorikeetcx.ai/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "05979bbc-88ac-4cf1-8525-5949f921d9c3",
+    "name": "Lorikeet Conversations Webhooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Programmatic surface for Lorikeet (Lorikeet CX), an AI customer support agent for complex and regulated businesses. The API centers on conversations (support tickets handled by the AI agent), messages within those conversations, webhook subscriptions and events, and knowledge ingestion.\n\nIMPORTANT (honesty note): Lorikeet's authoritative API reference at docs.lorikeetcx.ai is gated behind a customer access code. The paths, schemas, and the base URL below are MODELED from Lorikeet's public integration and security materials (synchronous scoped-credential API, inbound HMAC-signed webhooks, outbound async request/response, typed no-code \"tools\", and a per-step audit trail) and from common conventions for this class of AI support agent. They should be treated as a best-effort, plausible model - not field-verified contract - and reconciled against the official reference once access is available. Authentication is a Bearer API key.\n\nContact Support:\n Name: Lorikeet",
+      "type": "text/plain"
+    }
+  }
+}

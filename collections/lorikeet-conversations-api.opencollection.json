@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lorikeet Conversations API",
+    "version": "0.1.0-modeled"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Conversations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List conversations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lorikeetcx.ai/v1/conversations",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Opaque pagination cursor from a prior response."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List conversations"
+        },
+        {
+          "info": {
+            "name": "Create a conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lorikeetcx.ai/v1/conversations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Start a new conversation (support ticket) for the Lorikeet AI agent to work. An optional first end-user message and end-user / context metadata can be supplied so the workflow orchestration layer can begin resolving immediately."
+        },
+        {
+          "info": {
+            "name": "Retrieve a conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lorikeetcx.ai/v1/conversations/:conversation_id",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve the current state of a conversation, including status, resolution, and whether it has been escalated to a human agent."
+        },
+        {
+          "info": {
+            "name": "Continue a conversation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lorikeetcx.ai/v1/conversations/:conversation_id",
+            "params": [
+              {
+                "name": "conversation_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Continue an existing conversation by supplying a new end-user message. The agent advances its workflow and returns the updated conversation (including any new agent messages)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

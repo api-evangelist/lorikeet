@@ -1,0 +1,452 @@
+{
+  "item": [
+    {
+      "id": "f84db424-df31-4662-8388-fe4050f72909",
+      "name": "Knowledge",
+      "description": {
+        "content": "Ingest and manage knowledge sources the agent reasons over.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "58ab4d12-4adf-4b88-a994-741d0530957d",
+          "name": "List knowledge sources",
+          "request": {
+            "name": "List knowledge sources",
+            "description": {},
+            "url": {
+              "path": [
+                "knowledge",
+                "sources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8e0c1fde-4a02-4804-90fa-5453ce95517f",
+              "name": "Configured knowledge sources.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "knowledge",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"type\": \"document\",\n    \"title\": \"string\",\n    \"status\": \"pending\",\n    \"created_at\": \"1972-12-08T00:38:32.173Z\"\n  },\n  {\n    \"id\": \"string\",\n    \"type\": \"document\",\n    \"title\": \"string\",\n    \"status\": \"failed\",\n    \"created_at\": \"1986-11-20T21:22:33.306Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4ac75a43-4008-450a-bc80-86e6cc53188e",
+          "name": "Ingest a knowledge source",
+          "request": {
+            "name": "Ingest a knowledge source",
+            "description": {
+              "content": "Submit a document, URL, or help-center article for ingestion into the knowledge base the agent reasons over. Ingestion is asynchronous; poll the returned source for status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "knowledge",
+                "sources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"title\": \"<string>\",\n  \"content\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2c3a8367-16af-47a0-bf84-a83f317b7d9f",
+              "name": "Ingestion accepted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "knowledge",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"title\": \"<string>\",\n  \"content\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"article\",\n  \"title\": \"string\",\n  \"status\": \"pending\",\n  \"created_at\": \"1981-09-12T20:51:28.053Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ccd92d0-99cb-4985-9381-e639d8be89f7",
+          "name": "Retrieve a knowledge source",
+          "request": {
+            "name": "Retrieve a knowledge source",
+            "description": {},
+            "url": {
+              "path": [
+                "knowledge",
+                "sources",
+                ":source_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "98c6e95a-b7e3-46ae-9c76-e69ead3c9352",
+              "name": "The knowledge source and its ingestion status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "knowledge",
+                    "sources",
+                    ":source_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"article\",\n  \"title\": \"string\",\n  \"status\": \"pending\",\n  \"created_at\": \"1981-09-12T20:51:28.053Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9369823-4bbe-4f54-806a-9a0fc83a47f9",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "knowledge",
+                    "sources",
+                    ":source_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "24b2c3d5-20ba-405e-bd75-e5a6004b4c69",
+          "name": "Delete a knowledge source",
+          "request": {
+            "name": "Delete a knowledge source",
+            "description": {},
+            "url": {
+              "path": [
+                "knowledge",
+                "sources",
+                ":source_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "source_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5fa80d5d-0c91-46ff-9cec-27f2bd093848",
+              "name": "Knowledge source deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "knowledge",
+                    "sources",
+                    ":source_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "source_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.lorikeetcx.ai/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "580fdf98-a2ac-44ab-b68b-867f2aa45541",
+    "name": "Lorikeet Conversations Knowledge API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Programmatic surface for Lorikeet (Lorikeet CX), an AI customer support agent for complex and regulated businesses. The API centers on conversations (support tickets handled by the AI agent), messages within those conversations, webhook subscriptions and events, and knowledge ingestion.\n\nIMPORTANT (honesty note): Lorikeet's authoritative API reference at docs.lorikeetcx.ai is gated behind a customer access code. The paths, schemas, and the base URL below are MODELED from Lorikeet's public integration and security materials (synchronous scoped-credential API, inbound HMAC-signed webhooks, outbound async request/response, typed no-code \"tools\", and a per-step audit trail) and from common conventions for this class of AI support agent. They should be treated as a best-effort, plausible model - not field-verified contract - and reconciled against the official reference once access is available. Authentication is a Bearer API key.\n\nContact Support:\n Name: Lorikeet",
+      "type": "text/plain"
+    }
+  }
+}
