@@ -27,6 +27,13 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/lorikeet.png
 tags:
+- Artificial Intelligence
+- Customer-Support
+- AI Agent
+- Support Automation
+- Workflows
+- Help Desk
+tags_raw:
 - AI
 - Customer Support
 - AI Agent
@@ -79,6 +86,8 @@ apis:
   humanURL: https://docs.lorikeetcx.ai/guides/quickstart
   baseURL: https://api.lorikeetcx.ai/v1
   tags:
+  - Message
+  tags_raw:
   - Messages
   properties:
   - type: OpenAPI
@@ -97,6 +106,8 @@ apis:
   humanURL: https://docs.lorikeetcx.ai/guides/quickstart
   baseURL: https://api.lorikeetcx.ai/v1
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
