@@ -1,10 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Lorikeet Conversations API
-  description: 'Programmatic surface for Lorikeet (Lorikeet CX), an AI customer support agent for complex and regulated businesses. The API centers on conversations (support tickets handled by the AI agent), messages within those conversations, webhook subscriptions and events, and knowledge ingestion.
-
-
-    IMPORTANT (honesty note): Lorikeet''s authoritative API reference at docs.lorikeetcx.ai is gated behind a customer access code. The paths, schemas, and the base URL below are MODELED from Lorikeet''s public integration and security materials (synchronous scoped-credential API, inbound HMAC-signed webhooks, outbound async request/response, typed no-code "tools", and a per-step audit trail) and from common conventions for this class of AI support agent. They should be treated as a best-effort, plausible model - not field-verified contract - and reconciled against the official reference once access is available. Authentication is a Bearer API key.'
+  description: Programmatic surface for Lorikeet (Lorikeet CX), an AI customer support agent for complex and regulated businesses.
   version: 0.1.0-modeled
   contact:
     name: Lorikeet
@@ -106,6 +103,13 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   parameters:
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Opaque pagination cursor from a prior response.
     Limit:
       name: limit
       in: query
@@ -115,49 +119,23 @@ components:
         minimum: 1
         maximum: 100
         default: 20
-    Cursor:
-      name: cursor
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Opaque pagination cursor from a prior response.
     ConversationId:
       name: conversation_id
       in: path
       required: true
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    RateLimited:
-      description: Rate limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    ConversationList:
+    Error:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Conversation'
-        next_cursor:
-          type: string
-          nullable: true
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
     EndUser:
       type: object
       properties:
@@ -173,6 +151,32 @@ components:
           type: object
           additionalProperties: true
           description: Traits used by workflows (e.g. plan, region, account state).
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+        conversation_id:
+          type: string
+        role:
+          type: string
+          enum:
+          - end_user
+          - agent
+          - system
+        content:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    ConversationStatus:
+      type: string
+      enum:
+      - open
+      - resolved
+      - escalated
+      - closed
+      description: Lifecycle of a conversation. `escalated` indicates the agent handed off to a human per the workflow's escalation rules.
     Conversation:
       type: object
       properties:
@@ -185,8 +189,9 @@ components:
         end_user:
           $ref: '#/components/schemas/EndUser'
         resolution:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Summary of how the agent resolved the conversation, if resolved.
         escalated:
           type: boolean
@@ -200,14 +205,28 @@ components:
         updated_at:
           type: string
           format: date-time
-    ConversationStatus:
-      type: string
-      enum:
-      - open
-      - resolved
-      - escalated
-      - closed
-      description: Lifecycle of a conversation. `escalated` indicates the agent handed off to a human per the workflow's escalation rules.
+    ContinueConversationRequest:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: New end-user message to advance the conversation.
+        metadata:
+          type: object
+          additionalProperties: true
+    ConversationList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Conversation'
+        next_cursor:
+          type:
+          - string
+          - 'null'
     CreateConversationRequest:
       type: object
       properties:
@@ -227,45 +246,25 @@ components:
           type: object
           additionalProperties: true
           description: Arbitrary context passed to the agent's workflows.
-    Message:
-      type: object
-      properties:
-        id:
-          type: string
-        conversation_id:
-          type: string
-        role:
-          type: string
-          enum:
-          - end_user
-          - agent
-          - system
-        content:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
-    ContinueConversationRequest:
-      type: object
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: New end-user message to advance the conversation.
-        metadata:
-          type: object
-          additionalProperties: true
+  responses:
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

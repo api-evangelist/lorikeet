@@ -1,10 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Lorikeet Conversations Messages API
-  description: 'Programmatic surface for Lorikeet (Lorikeet CX), an AI customer support agent for complex and regulated businesses. The API centers on conversations (support tickets handled by the AI agent), messages within those conversations, webhook subscriptions and events, and knowledge ingestion.
-
-
-    IMPORTANT (honesty note): Lorikeet''s authoritative API reference at docs.lorikeetcx.ai is gated behind a customer access code. The paths, schemas, and the base URL below are MODELED from Lorikeet''s public integration and security materials (synchronous scoped-credential API, inbound HMAC-signed webhooks, outbound async request/response, typed no-code "tools", and a per-step audit trail) and from common conventions for this class of AI support agent. They should be treated as a best-effort, plausible model - not field-verified contract - and reconciled against the official reference once access is available. Authentication is a Bearer API key.'
+  title: Lorikeet Messages API
+  description: Programmatic surface for Lorikeet (Lorikeet CX), an AI customer support agent for complex and regulated businesses.
   version: 0.1.0-modeled
   contact:
     name: Lorikeet
@@ -62,6 +59,13 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   parameters:
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Opaque pagination cursor from a prior response.
     Limit:
       name: limit
       in: query
@@ -71,13 +75,6 @@ components:
         minimum: 1
         maximum: 100
         default: 20
-    Cursor:
-      name: cursor
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Opaque pagination cursor from a prior response.
     ConversationId:
       name: conversation_id
       in: path
@@ -85,30 +82,16 @@ components:
       schema:
         type: string
   schemas:
-    CreateMessageRequest:
-      type: object
-      required:
-      - role
-      - content
-      properties:
-        role:
-          type: string
-          enum:
-          - end_user
-          - agent
-          description: Author of the message.
-        content:
-          type: string
-    MessageList:
+    Error:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Message'
-        next_cursor:
-          type: string
-          nullable: true
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
     Message:
       type: object
       properties:
@@ -127,16 +110,31 @@ components:
         created_at:
           type: string
           format: date-time
-    Error:
+    MessageList:
       type: object
       properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        next_cursor:
+          type:
+          - string
+          - 'null'
+    CreateMessageRequest:
+      type: object
+      required:
+      - role
+      - content
+      properties:
+        role:
+          type: string
+          enum:
+          - end_user
+          - agent
+          description: Author of the message.
+        content:
+          type: string
   responses:
     NotFound:
       description: Resource not found.

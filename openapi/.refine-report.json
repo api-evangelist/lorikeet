@@ -1,10 +1,7 @@
 {
   "provider": "lorikeet",
   "sources": [
-    "lorikeet-conversations-api-openapi.yml",
-    "lorikeet-knowledge-api-openapi.yml",
-    "lorikeet-messages-api-openapi.yml",
-    "lorikeet-webhooks-api-openapi.yml"
+    "_original/lorikeet-openapi.yml"
   ],
   "outputs": [
     "lorikeet-conversations-api-openapi.yml",
@@ -15,6 +12,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "lorikeet-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "lorikeet-conversations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lorikeet-knowledge-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lorikeet-messages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lorikeet-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

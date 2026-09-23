@@ -1,10 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Lorikeet Conversations Knowledge API
-  description: 'Programmatic surface for Lorikeet (Lorikeet CX), an AI customer support agent for complex and regulated businesses. The API centers on conversations (support tickets handled by the AI agent), messages within those conversations, webhook subscriptions and events, and knowledge ingestion.
-
-
-    IMPORTANT (honesty note): Lorikeet''s authoritative API reference at docs.lorikeetcx.ai is gated behind a customer access code. The paths, schemas, and the base URL below are MODELED from Lorikeet''s public integration and security materials (synchronous scoped-credential API, inbound HMAC-signed webhooks, outbound async request/response, typed no-code "tools", and a per-step audit trail) and from common conventions for this class of AI support agent. They should be treated as a best-effort, plausible model - not field-verified contract - and reconciled against the official reference once access is available. Authentication is a Bearer API key.'
+  title: Lorikeet Knowledge API
+  description: Programmatic surface for Lorikeet (Lorikeet CX), an AI customer support agent for complex and regulated businesses.
   version: 0.1.0-modeled
   contact:
     name: Lorikeet
@@ -84,24 +81,6 @@ paths:
           description: Knowledge source deleted.
 components:
   schemas:
-    IngestKnowledgeRequest:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - url
-          - document
-          - article
-        url:
-          type: string
-          format: uri
-          description: Source URL when `type` is `url` or `article`.
-        title:
-          type: string
-        content:
-          type: string
-          description: Inline content when `type` is `document`.
     KnowledgeSource:
       type: object
       properties:
@@ -136,6 +115,24 @@ components:
               type: string
             message:
               type: string
+    IngestKnowledgeRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - url
+          - document
+          - article
+        url:
+          type: string
+          format: uri
+          description: Source URL when `type` is `url` or `article`.
+        title:
+          type: string
+        content:
+          type: string
+          description: Inline content when `type` is `document`.
   responses:
     NotFound:
       description: Resource not found.
