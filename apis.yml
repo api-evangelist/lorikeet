@@ -41,7 +41,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/lorikeet.png
 tags:
 - Artificial Intelligence
-- Customer-Support
+- Customer Support
 - AI Agents
 - Support Automation
 - Workflows
@@ -53,6 +53,7 @@ tags_raw:
 - Support Automation
 - Workflows
 - Helpdesk
+- Customer-Support
 created: '2026-07-01'
 modified: '2026-07-01'
 specificationVersion: '0.23'

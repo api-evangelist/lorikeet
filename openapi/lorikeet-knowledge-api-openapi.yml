@@ -81,6 +81,24 @@ paths:
           description: Knowledge source deleted.
 components:
   schemas:
+    IngestKnowledgeRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - url
+          - document
+          - article
+        url:
+          type: string
+          format: uri
+          description: Source URL when `type` is `url` or `article`.
+        title:
+          type: string
+        content:
+          type: string
+          description: Inline content when `type` is `document`.
     KnowledgeSource:
       type: object
       properties:
@@ -115,24 +133,6 @@ components:
               type: string
             message:
               type: string
-    IngestKnowledgeRequest:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - url
-          - document
-          - article
-        url:
-          type: string
-          format: uri
-          description: Source URL when `type` is `url` or `article`.
-        title:
-          type: string
-        content:
-          type: string
-          description: Inline content when `type` is `document`.
   responses:
     NotFound:
       description: Resource not found.
