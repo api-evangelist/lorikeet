@@ -102,59 +102,26 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    EndUser:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Your stable identifier for the end user.
-        email:
-          type: string
-          format: email
-        name:
-          type: string
-        attributes:
-          type: object
-          additionalProperties: true
-          description: Traits used by workflows (e.g. plan, region, account state).
-    Message:
-      type: object
-      properties:
-        id:
-          type: string
-        conversation_id:
-          type: string
-        role:
-          type: string
-          enum:
-          - end_user
-          - agent
-          - system
-        content:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-    CreateConversationRequest:
-      type: object
-      properties:
-        end_user:
-          $ref: '#/components/schemas/EndUser'
-        message:
-          type: string
-          description: Optional first end-user message.
-        channel:
-          type: string
-          description: Origin channel (e.g. chat, email, voice).
-          enum:
-          - chat
-          - email
-          - voice
-        metadata:
-          type: object
-          additionalProperties: true
-          description: Arbitrary context passed to the agent's workflows.
     Conversation:
       type: object
       properties:
@@ -183,16 +150,25 @@ components:
         updated_at:
           type: string
           format: date-time
-    Error:
+    CreateConversationRequest:
       type: object
       properties:
-        error:
+        end_user:
+          $ref: '#/components/schemas/EndUser'
+        message:
+          type: string
+          description: Optional first end-user message.
+        channel:
+          type: string
+          description: Origin channel (e.g. chat, email, voice).
+          enum:
+          - chat
+          - email
+          - voice
+        metadata:
           type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
+          additionalProperties: true
+          description: Arbitrary context passed to the agent's workflows.
     ConversationList:
       type: object
       properties:
@@ -215,6 +191,21 @@ components:
         metadata:
           type: object
           additionalProperties: true
+    EndUser:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Your stable identifier for the end user.
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+          description: Traits used by workflows (e.g. plan, region, account state).
     ConversationStatus:
       type: string
       enum:
@@ -223,6 +214,34 @@ components:
       - escalated
       - closed
       description: Lifecycle of a conversation. `escalated` indicates the agent handed off to a human per the workflow's escalation rules.
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+        conversation_id:
+          type: string
+        role:
+          type: string
+          enum:
+          - end_user
+          - agent
+          - system
+        content:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
   parameters:
     ConversationId:
       name: conversation_id
@@ -230,13 +249,6 @@ components:
       required: true
       schema:
         type: string
-    Cursor:
-      name: cursor
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Opaque pagination cursor from a prior response.
     Limit:
       name: limit
       in: query
@@ -246,25 +258,13 @@ components:
         minimum: 1
         maximum: 100
         default: 20
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    RateLimited:
-      description: Rate limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Opaque pagination cursor from a prior response.
   securitySchemes:
     bearerAuth:
       type: http

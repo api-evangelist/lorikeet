@@ -78,6 +78,23 @@ components:
       - conversation.escalated
       - message.created
       description: Lorikeet event types delivered to webhook subscribers.
+    CreateWebhookRequest:
+      type: object
+      required:
+      - url
+      - events
+      properties:
+        url:
+          type: string
+          format: uri
+          description: HTTPS endpoint that will receive signed event deliveries.
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventType'
+        secret:
+          type: string
+          description: Shared secret used to compute the HMAC signature on deliveries so you can verify authenticity before acting.
     WebhookSubscription:
       type: object
       properties:
@@ -103,23 +120,6 @@ components:
               type: string
             message:
               type: string
-    CreateWebhookRequest:
-      type: object
-      required:
-      - url
-      - events
-      properties:
-        url:
-          type: string
-          format: uri
-          description: HTTPS endpoint that will receive signed event deliveries.
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventType'
-        secret:
-          type: string
-          description: Shared secret used to compute the HMAC signature on deliveries so you can verify authenticity before acting.
   responses:
     NotFound:
       description: Resource not found.
