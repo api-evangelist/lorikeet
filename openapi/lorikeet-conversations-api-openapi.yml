@@ -103,6 +103,12 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Missing or invalid API key.
       content:
@@ -115,13 +121,59 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Opaque pagination cursor from a prior response.
+    ConversationId:
+      name: conversation_id
+      in: path
+      required: true
+      schema:
+        type: string
   schemas:
+    CreateConversationRequest:
+      type: object
+      properties:
+        end_user:
+          $ref: '#/components/schemas/EndUser'
+        message:
+          type: string
+          description: Optional first end-user message.
+        channel:
+          type: string
+          description: Origin channel (e.g. chat, email, voice).
+          enum:
+          - chat
+          - email
+          - voice
+        metadata:
+          type: object
+          additionalProperties: true
+          description: Arbitrary context passed to the agent's workflows.
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
     Conversation:
       type: object
       properties:
@@ -150,47 +202,24 @@ components:
         updated_at:
           type: string
           format: date-time
-    CreateConversationRequest:
+    Message:
       type: object
       properties:
-        end_user:
-          $ref: '#/components/schemas/EndUser'
-        message:
+        id:
           type: string
-          description: Optional first end-user message.
-        channel:
+        conversation_id:
           type: string
-          description: Origin channel (e.g. chat, email, voice).
+        role:
+          type: string
           enum:
-          - chat
-          - email
-          - voice
-        metadata:
-          type: object
-          additionalProperties: true
-          description: Arbitrary context passed to the agent's workflows.
-    ConversationList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Conversation'
-        next_cursor:
-          type:
-          - string
-          - 'null'
-    ContinueConversationRequest:
-      type: object
-      required:
-      - message
-      properties:
-        message:
+          - end_user
+          - agent
+          - system
+        content:
           type: string
-          description: New end-user message to advance the conversation.
-        metadata:
-          type: object
-          additionalProperties: true
+        created_at:
+          type: string
+          format: date-time
     EndUser:
       type: object
       properties:
@@ -214,57 +243,28 @@ components:
       - escalated
       - closed
       description: Lifecycle of a conversation. `escalated` indicates the agent handed off to a human per the workflow's escalation rules.
-    Message:
+    ConversationList:
       type: object
       properties:
-        id:
-          type: string
-        conversation_id:
-          type: string
-        role:
-          type: string
-          enum:
-          - end_user
-          - agent
-          - system
-        content:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-    Error:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Conversation'
+        next_cursor:
+          type:
+          - string
+          - 'null'
+    ContinueConversationRequest:
       type: object
+      required:
+      - message
       properties:
-        error:
+        message:
+          type: string
+          description: New end-user message to advance the conversation.
+        metadata:
           type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
-  parameters:
-    ConversationId:
-      name: conversation_id
-      in: path
-      required: true
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 20
-    Cursor:
-      name: cursor
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Opaque pagination cursor from a prior response.
+          additionalProperties: true
   securitySchemes:
     bearerAuth:
       type: http
