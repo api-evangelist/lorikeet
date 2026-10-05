@@ -1,0 +1,36 @@
+slug: lorikeet
+provider: Lorikeet
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Conversations
+  spec_file: lorikeet-conversations-api-openapi.yml
+  capability_id: BC-430.10
+  capability_id_l1: BC-430
+  capability_name: Customer Inquiry Management
+  confidence: 0.8
+  evidence: POST /conversations  createConversation  Create a conversation; schemas EndUser, ConversationStatus,
+    Message — "an AI customer support agent for complex and regulated businesses"
+  reason: Operations create, list and continue customer support conversations with end users for an AI
+    support agent, i.e. handling inbound customer contacts through to resolution. Sub-capability choice
+    between inquiry handling and self-service/chatbot is the residual ambiguity.
+- tag: Messages
+  spec_file: lorikeet-messages-api-openapi.yml
+  capability_id: BC-430.10
+  capability_id_l1: BC-430
+  capability_name: Customer Inquiry Management
+  confidence: 0.75
+  evidence: GET /conversations/{conversation_id}/messages  listMessages  List messages; POST /conversations/{conversation_id}/messages  createMessage  Post
+    a message
+  reason: Message exchange inside a customer support conversation handled by the AI agent, i.e. inbound/outbound
+    contact handling within customer service. Narrow surface but unambiguously part of the support interaction.
