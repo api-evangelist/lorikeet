@@ -102,49 +102,26 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: Resource not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    RateLimited:
-      description: Rate limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 20
-    Cursor:
-      name: cursor
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Opaque pagination cursor from a prior response.
-    ConversationId:
-      name: conversation_id
-      in: path
-      required: true
-      schema:
-        type: string
   schemas:
+    ContinueConversationRequest:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: New end-user message to advance the conversation.
+        metadata:
+          type: object
+          additionalProperties: true
+    ConversationStatus:
+      type: string
+      enum:
+      - open
+      - resolved
+      - escalated
+      - closed
+      description: Lifecycle of a conversation. `escalated` indicates the agent handed off to a human per the workflow's escalation rules.
     CreateConversationRequest:
       type: object
       properties:
@@ -164,16 +141,24 @@ components:
           type: object
           additionalProperties: true
           description: Arbitrary context passed to the agent's workflows.
-    Error:
+    Message:
       type: object
       properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
+        id:
+          type: string
+        conversation_id:
+          type: string
+        role:
+          type: string
+          enum:
+          - end_user
+          - agent
+          - system
+        content:
+          type: string
+        created_at:
+          type: string
+          format: date-time
     Conversation:
       type: object
       properties:
@@ -202,24 +187,27 @@ components:
         updated_at:
           type: string
           format: date-time
-    Message:
+    Error:
       type: object
       properties:
-        id:
-          type: string
-        conversation_id:
-          type: string
-        role:
-          type: string
-          enum:
-          - end_user
-          - agent
-          - system
-        content:
-          type: string
-        created_at:
-          type: string
-          format: date-time
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
+    ConversationList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Conversation'
+        next_cursor:
+          type:
+          - string
+          - 'null'
     EndUser:
       type: object
       properties:
@@ -235,36 +223,48 @@ components:
           type: object
           additionalProperties: true
           description: Traits used by workflows (e.g. plan, region, account state).
-    ConversationStatus:
-      type: string
-      enum:
-      - open
-      - resolved
-      - escalated
-      - closed
-      description: Lifecycle of a conversation. `escalated` indicates the agent handed off to a human per the workflow's escalation rules.
-    ConversationList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Conversation'
-        next_cursor:
-          type:
-          - string
-          - 'null'
-    ContinueConversationRequest:
-      type: object
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: New end-user message to advance the conversation.
-        metadata:
-          type: object
-          additionalProperties: true
+  responses:
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimited:
+      description: Rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Opaque pagination cursor from a prior response.
+    Limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+    ConversationId:
+      name: conversation_id
+      in: path
+      required: true
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

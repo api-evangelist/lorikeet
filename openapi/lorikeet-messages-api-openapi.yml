@@ -59,30 +59,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    CreateMessageRequest:
-      type: object
-      required:
-      - role
-      - content
-      properties:
-        role:
-          type: string
-          enum:
-          - end_user
-          - agent
-          description: Author of the message.
-        content:
-          type: string
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
     MessageList:
       type: object
       properties:
@@ -112,6 +88,30 @@ components:
         created_at:
           type: string
           format: date-time
+    CreateMessageRequest:
+      type: object
+      required:
+      - role
+      - content
+      properties:
+        role:
+          type: string
+          enum:
+          - end_user
+          - agent
+          description: Author of the message.
+        content:
+          type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
   responses:
     NotFound:
       description: Resource not found.

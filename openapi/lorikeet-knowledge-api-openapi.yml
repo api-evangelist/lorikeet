@@ -81,30 +81,6 @@ paths:
           description: Knowledge source deleted.
 components:
   schemas:
-    KnowledgeSource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - url
-          - document
-          - article
-        title:
-          type: string
-        status:
-          type: string
-          enum:
-          - pending
-          - processing
-          - ready
-          - failed
-          description: Asynchronous ingestion status.
-        created_at:
-          type: string
-          format: date-time
     IngestKnowledgeRequest:
       type: object
       properties:
@@ -133,6 +109,30 @@ components:
               type: string
             message:
               type: string
+    KnowledgeSource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - url
+          - document
+          - article
+        title:
+          type: string
+        status:
+          type: string
+          enum:
+          - pending
+          - processing
+          - ready
+          - failed
+          description: Asynchronous ingestion status.
+        created_at:
+          type: string
+          format: date-time
   responses:
     NotFound:
       description: Resource not found.

@@ -69,15 +69,31 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    EventType:
-      type: string
-      enum:
-      - conversation.created
-      - conversation.updated
-      - conversation.resolved
-      - conversation.escalated
-      - message.created
-      description: Lorikeet event types delivered to webhook subscribers.
+    WebhookSubscription:
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventType'
+        created_at:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+            message:
+              type: string
     CreateWebhookRequest:
       type: object
       required:
@@ -95,31 +111,15 @@ components:
         secret:
           type: string
           description: Shared secret used to compute the HMAC signature on deliveries so you can verify authenticity before acting.
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            type:
-              type: string
-            message:
-              type: string
-    WebhookSubscription:
-      type: object
-      properties:
-        id:
-          type: string
-        url:
-          type: string
-          format: uri
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventType'
-        created_at:
-          type: string
-          format: date-time
+    EventType:
+      type: string
+      enum:
+      - conversation.created
+      - conversation.updated
+      - conversation.resolved
+      - conversation.escalated
+      - message.created
+      description: Lorikeet event types delivered to webhook subscribers.
   responses:
     NotFound:
       description: Resource not found.
