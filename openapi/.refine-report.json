@@ -1,26 +1,38 @@
 {
   "provider": "lorikeet",
   "sources": [
-    "_original/lorikeet-openapi.yml"
+    "_original/lorikeet-openapi.json"
   ],
   "outputs": [
-    "lorikeet-conversations-api-openapi.yml",
-    "lorikeet-knowledge-api-openapi.yml",
-    "lorikeet-messages-api-openapi.yml",
-    "lorikeet-webhooks-api-openapi.yml"
+    "lorikeet-tools-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
-    "lorikeet-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "lorikeet-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "lorikeet-openapi.json: tagged paths GET /api/tools -> Tools",
+    "lorikeet-openapi.json: tagged paths GET /api/tools/{slug} -> Tools",
+    "lorikeet-openapi.json: tagged paths POST /api/tools/cx-roi -> Tools",
+    "lorikeet-openapi.json: tagged paths POST /api/tools/hiring-timeline -> Tools",
+    "lorikeet-openapi.json: tagged paths POST /api/tools/build-vs-buy -> Tools",
+    "lorikeet-openapi.json: tagged paths POST /api/tools/backlog-cost -> Tools",
+    "lorikeet-openapi.json: tagged paths POST /api/tools/attrition-impact -> Tools",
+    "lorikeet-openapi.json: tagged paths POST /api/tools/ai-readiness -> Tools",
+    "lorikeet-openapi.json: tagged paths POST /api/tools/kb-evaluator -> Tools",
+    "lorikeet-openapi.json: tagged paths POST /api/tools/resolution-time -> Tools",
+    "lorikeet-openapi.json: tagged paths POST /api/tools/coverage-gap -> Tools",
+    "lorikeet-openapi.json: tagged paths POST /api/tools/quality-vs-speed -> Tools",
+    "lorikeet-openapi.json: tagged paths POST /api/tools/build-the-case -> Tools",
+    "lorikeet-openapi.json: tagged paths POST /api/tools/show-the-value -> Tools",
+    "lorikeet-openapi.json: tagged paths POST /api/tools/ai-identity -> Tools",
+    "lorikeet-openapi.json: tagged paths POST /api/tools/change-comms -> Tools",
+    "lorikeet-openapi.json: tagged paths POST /api/tools/ai-flywheel -> Tools",
+    "lorikeet-openapi.json: tagged paths POST /api/tools/lorikeet-journey -> Tools",
+    "lorikeet-openapi.json: tagged paths POST /api/tools/ticket-storm -> Tools",
+    "lorikeet-openapi.json: declared missing tag: Tools",
+    "apis.yml register: written (+1 apis, 1 total)"
   ],
-  "skipped": [
-    "lorikeet-conversations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "lorikeet-knowledge-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "lorikeet-messages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "lorikeet-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
-  ]
+  "skipped": []
 }

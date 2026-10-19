@@ -62,74 +62,16 @@ created: '2026-07-01'
 modified: '2026-07-01'
 specificationVersion: '0.23'
 apis:
-- aid: lorikeet:lorikeet-conversations-api
-  name: Lorikeet Conversations API
-  description: Create, continue, and inspect AI-agent-handled support conversations.
+- aid: lorikeet:lorikeet-tools-api
+  name: Lorikeet Tools API
+  description: The Tools API from Lorikeet — 19 operation(s) for tools.
   humanURL: https://docs.lorikeetcx.ai/guides/quickstart
   baseURL: https://api.lorikeetcx.ai/v1
   tags:
-  - Conversations
+  - Tools
   properties:
   - type: OpenAPI
-    url: openapi/lorikeet-conversations-api-openapi.yml
-  - type: Documentation
-    url: https://docs.lorikeetcx.ai/guides/quickstart
-  - type: PostmanCollection
-    url: collections/lorikeet.postman_collection.json
-  - type: OpenCollection
-    url: collections/lorikeet.opencollection.json
-  - type: Documentation
-    url: https://www.lorikeetcx.ai/articles/ai-support-secure-api-webhook-integrations-2026
-- aid: lorikeet:lorikeet-knowledge-api
-  name: Lorikeet Knowledge API
-  description: Ingest and manage knowledge sources the agent reasons over.
-  humanURL: https://docs.lorikeetcx.ai/guides/quickstart
-  baseURL: https://api.lorikeetcx.ai/v1
-  tags:
-  - Knowledge
-  properties:
-  - type: OpenAPI
-    url: openapi/lorikeet-knowledge-api-openapi.yml
-  - type: Documentation
-    url: https://docs.lorikeetcx.ai/guides/quickstart
-  - type: PostmanCollection
-    url: collections/lorikeet.postman_collection.json
-  - type: OpenCollection
-    url: collections/lorikeet.opencollection.json
-  - type: Documentation
-    url: https://www.lorikeetcx.ai/articles/ai-support-secure-api-webhook-integrations-2026
-- aid: lorikeet:lorikeet-messages-api
-  name: Lorikeet Messages API
-  description: Post and list messages within a conversation.
-  humanURL: https://docs.lorikeetcx.ai/guides/quickstart
-  baseURL: https://api.lorikeetcx.ai/v1
-  tags:
-  - Message
-  tags_raw:
-  - Messages
-  properties:
-  - type: OpenAPI
-    url: openapi/lorikeet-messages-api-openapi.yml
-  - type: Documentation
-    url: https://docs.lorikeetcx.ai/guides/quickstart
-  - type: PostmanCollection
-    url: collections/lorikeet.postman_collection.json
-  - type: OpenCollection
-    url: collections/lorikeet.opencollection.json
-  - type: Documentation
-    url: https://www.lorikeetcx.ai/articles/ai-support-secure-api-webhook-integrations-2026
-- aid: lorikeet:lorikeet-webhooks-api
-  name: Lorikeet Webhooks API
-  description: Manage webhook subscriptions and receive Lorikeet events.
-  humanURL: https://docs.lorikeetcx.ai/guides/quickstart
-  baseURL: https://api.lorikeetcx.ai/v1
-  tags:
-  - Webhook
-  tags_raw:
-  - Webhooks
-  properties:
-  - type: OpenAPI
-    url: openapi/lorikeet-webhooks-api-openapi.yml
+    url: openapi/lorikeet-tools-api-openapi.yml
   - type: Documentation
     url: https://docs.lorikeetcx.ai/guides/quickstart
   - type: PostmanCollection
