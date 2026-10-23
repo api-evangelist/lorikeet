@@ -8908,3 +8908,9 @@ components:
 externalDocs:
   description: Agent docs
   url: https://www.lorikeet.tools/llms-full.txt
+x-provenance:
+  method: harvested
+  publisher: Lorikeet
+  source: https://www.lorikeet.tools/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
