@@ -1,4 +1,4 @@
-# Lorikeet (lorikeet)
+# Lorikeet
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,140 +64,131 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Lorikeet (Lorikeet CX) is an AI customer support agent built for complex and regulated businesses across chat, email, and voice. Rather than a single chatbot, it uses a workflow / "skills"-based orchestration layer that follows a company's standard operating procedures, calls into helpdesks (Zendesk, Intercom, Front) and internal systems through typed, no-code tools, and produces a per-step audit trail. Its programmatic surface centers on conversations, inbound and outbound webhooks / events, actions/tools, and knowledge ingestion, secured with scoped Bearer/API-key credentials.
+Lorikeet (Lorikeet CX) is an AI customer support agent built for complex and regulated businesses across chat, email, and voice. Rather than a single chatbot, it uses a workflow / "skills"-based orchestration layer that follows a company's standard operating procedures, calls into helpdesks (Zendesk, Intercom, Front) and internal systems through typed, no-code tools, and produces a per-step audit trail. Its programmatic surface centers on conversations, inbound and outbound webhooks / events, actions/tools, and knowledge ingestion, secured with scoped Bearer/API-key credentials. Full API reference is gated behind an access code, so endpoint detail below is modeled from Lorikeet's public integration and security materials and marked where unconfirmed.
 
-> **Honesty note:** Lorikeet's authoritative API reference at `docs.lorikeetcx.ai` is gated behind a customer access code. The base URL, endpoints, and schemas in this catalog entry are **modeled** from Lorikeet's public integration and security materials and common conventions for this class of AI support agent. Treat them as a best-effort model to reconcile against the official reference, not a field-verified contract.
+**Areas:** Artificial Intelligence · Customer Service · AI Agents · Support Automation · Workflows · Help Desk
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/lorikeet/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/lorikeet/refs/heads/main/apis.yml)
+## Lorikeet on APIs.io
 
-## Tags
+Everything profiled for Lorikeet is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/lorikeet/](https://apis.io/providers/lorikeet/)** — or go straight to one of the APIs or properties below.
 
-- AI
-- Customer Support
-- AI Agent
-- Support Automation
-- Workflows
-- Helpdesk
+### APIs (4)
 
-## Timestamps
+- [Lorikeet Conversations API](https://apis.io/apis/lorikeet/lorikeet-conversations-api/) — Create, continue, and inspect AI-agent-handled support conversations.
+- [Lorikeet Knowledge API](https://apis.io/apis/lorikeet/lorikeet-knowledge-api/) — Ingest and manage knowledge sources the agent reasons over.
+- [Lorikeet Messages API](https://apis.io/apis/lorikeet/lorikeet-messages-api/) — Post and list messages within a conversation.
+- [Lorikeet Webhooks API](https://apis.io/apis/lorikeet/lorikeet-webhooks-api/) — Manage webhook subscriptions and receive Lorikeet events.
 
-- **Created:** 2026-07-01
-- **Modified:** 2026-07-01
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### Lorikeet Conversations API
+#### MCP servers (1)
 
-Programmatically create and continue conversations (support tickets) with the Lorikeet AI agent, post end-user and agent messages, and retrieve conversation state and resolution.
+Model Context Protocol servers that expose the API to agents.
 
-- **Human URL:** [https://docs.lorikeetcx.ai/guides/quickstart](https://docs.lorikeetcx.ai/guides/quickstart)
-- **Base URL:** `https://api.lorikeetcx.ai/v1`
+- [lorikeet](https://apis.io/servers/lorikeet/lorikeet/)
 
-#### Tags
+#### Agentic access (1)
 
-- Conversations
-- Support Tickets
-- AI Agent
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Properties
+- [Lorikeet Agentic Access](https://apis.io/agentic-access/lorikeet/lorikeet-agentic-access/)
 
-- [Documentation](https://docs.lorikeetcx.ai/guides/quickstart)
-- [OpenAPI](openapi/lorikeet-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/lorikeet.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/lorikeet.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Collections (5)
 
-### Lorikeet Messages API
+Postman and Open Collection request collections.
 
-Append and list messages within a conversation, carrying end-user input and the agent's replies. Messages drive the workflow orchestration layer forward toward resolution or human handoff.
+- [Lorikeet API](https://apis.io/collections/lorikeet/open-lorikeet/)
+- [Lorikeet Conversations API](https://apis.io/collections/lorikeet/open-lorikeet-conversations-api/)
+- [Lorikeet Conversations Knowledge API](https://apis.io/collections/lorikeet/open-lorikeet-knowledge-api/)
+- [Lorikeet Conversations Messages API](https://apis.io/collections/lorikeet/open-lorikeet-messages-api/)
+- [Lorikeet Conversations Webhooks API](https://apis.io/collections/lorikeet/open-lorikeet-webhooks-api/)
 
-- **Human URL:** [https://docs.lorikeetcx.ai/guides/quickstart](https://docs.lorikeetcx.ai/guides/quickstart)
-- **Base URL:** `https://api.lorikeetcx.ai/v1`
+#### Security (2)
 
-#### Tags
+Authentication, trust centre, and vulnerability disclosure.
 
-- Messages
-- Conversations
-- Chat
+- [Lorikeet Authentication](https://apis.io/security/lorikeet/lorikeet-authentication/)
+- [Lorikeet Domain Security](https://apis.io/security/lorikeet/lorikeet-domain-security/)
 
-#### Properties
+#### Plans and pricing (1)
 
-- [Documentation](https://docs.lorikeetcx.ai/guides/quickstart)
-- [OpenAPI](openapi/lorikeet-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/lorikeet.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/lorikeet.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Published plans, tiers and prices.
 
-### Lorikeet Webhooks & Events API
+- [Lorikeet Plans Pricing](https://apis.io/plans/lorikeet/lorikeet-plans-pricing/)
 
-Register and manage webhook subscriptions and receive Lorikeet events (conversation created, updated, resolved, escalated / handoff). Lorikeet supports inbound HMAC-signed webhooks that are cryptographically verified before the agent acts, and outbound async request/response callbacks so internal APIs are never exposed to the open internet.
+#### Rate limits (1)
 
-- **Human URL:** [https://www.lorikeetcx.ai/articles/ai-support-secure-api-webhook-integrations-2026](https://www.lorikeetcx.ai/articles/ai-support-secure-api-webhook-integrations-2026)
-- **Base URL:** `https://api.lorikeetcx.ai/v1`
+Published request limits.
 
-#### Tags
+- [Lorikeet Rate Limits](https://apis.io/rate-limits/lorikeet/lorikeet-rate-limits/)
 
-- Webhooks
-- Events
-- HMAC
+#### FinOps (1)
 
-#### Properties
+What the API costs to run, by operation.
 
-- [Documentation](https://www.lorikeetcx.ai/articles/ai-support-secure-api-webhook-integrations-2026)
-- [OpenAPI](openapi/lorikeet-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/lorikeet.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/lorikeet.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Lorikeet Finops](https://apis.io/finops/lorikeet/lorikeet-finops/)
 
-### Lorikeet Actions & Tools API
+## Where to find this API
 
-Lorikeet's "tools" primitive — typed actions with defined inputs and outputs and optional JavaScript output transforms, built no-code in the UI — lets the agent call into your systems (via synchronous scoped-credential API, inbound webhook, or outbound async callback) and chain multiple typed actions across systems. This surface is configured primarily in the Lorikeet UI; any programmatic management is not publicly documented.
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- **Human URL:** [https://www.lorikeetcx.ai/articles/ai-support-secure-api-webhook-integrations-2026](https://www.lorikeetcx.ai/articles/ai-support-secure-api-webhook-integrations-2026)
-- **Base URL:** `https://api.lorikeetcx.ai/v1`
-
-#### Tags
-
-- Actions
-- Tools
-- Integrations
-
-#### Properties
-
-- [Documentation](https://www.lorikeetcx.ai/articles/ai-support-secure-api-webhook-integrations-2026)
-- [OpenAPI](openapi/lorikeet-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/lorikeet.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/lorikeet.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Lorikeet Knowledge Ingestion API
-
-Ingest and manage the knowledge sources (help-center articles, documents, URLs) the agent draws on when following workflows. Public materials confirm knowledge is a first-class concept; the exact ingestion endpoints are access-gated and modeled here honestly rather than asserted as verified.
-
-- **Human URL:** [https://docs.lorikeetcx.ai/guides/quickstart](https://docs.lorikeetcx.ai/guides/quickstart)
-- **Base URL:** `https://api.lorikeetcx.ai/v1`
-
-#### Tags
-
-- Knowledge
-- Ingestion
-- Documents
-
-#### Properties
-
-- [Documentation](https://docs.lorikeetcx.ai/guides/quickstart)
-- [OpenAPI](openapi/lorikeet-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/lorikeet.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/lorikeet.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [LinkedIn](https://www.linkedin.com/company/lorikeetcx)
 - [Website](https://lorikeet.ai)
 - [Documentation](https://docs.lorikeetcx.ai/guides/quickstart)
-- [Plans](plans/lorikeet-plans-pricing.yml)
-- [Rate Limits](rate-limits/lorikeet-rate-limits.yml)
-- [Fin Ops](finops/lorikeet-finops.yml)
+- [Blog](https://www.lorikeetcx.ai/articles)
 
-> **GitHub:** No official Lorikeet CX GitHub organization was found. A `github.com/Lorikeet` org exists but is an unrelated 2014-era namesake, so `GitHubOrganization` is intentionally omitted from `apis.yml`.
+## API Evangelist rating
 
-## Maintainers
+**Kin Score 20.1** — emerging · rubric 0.25.0 · scored 2026-10-23
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 30.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 25.0 |
+| Access clarity | 5.3 |
+
+**Agent readiness 42.7** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 10.9** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/lorikeet/](https://apis.io/providers/lorikeet/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Lorikeet: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/lorikeet/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
